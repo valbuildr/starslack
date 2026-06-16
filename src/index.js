@@ -9,6 +9,57 @@ const app = new App({
     socketMode: true
 });
 
+app.command("/starslack-help", async ({ ack, respond }) => {
+    await ack();
+
+    const commands = {
+        "/starslack-help": "Displays this message.",
+        "/starslack-ping": "Pings Starslack.",
+        "/starslack-nws-alert": "Gets a random active alert from the National Weather Service. (NWS)",
+        "/starslack-coin-flip": "Flips a coin.",
+        "/starslack-bunny": "Gets a random picture of a bunny.",
+    };
+
+    const txt = Object.entries(commands).reduce((a, [k, v]) => {
+        return a + `- \`${k}\`: ${v}\n`;
+    }, "").slice(0, -2);
+
+    await respond({
+        blocks: [
+            {
+                type: "header",
+                text: {
+                    type: "plain_text",
+                    text: "Starslack Help",
+                    emoji: true
+                },
+                level: 2
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: txt
+                }
+            },
+            {
+                type: "context",
+                elements: [
+                    {
+                        type: "image",
+                        image_url: "https://valbuilds.xyz/pfp.png",
+                        alt_text: "valbuilds' Profile Picture"
+                    },
+                    {
+                        type: "mrkdwn",
+                        text: "*<@U08L2A1F2JG>* maintains Starslack, please don't hesitate to reach out to her for help."
+                    }
+                ]
+            }
+        ]
+    });
+});
+
 app.command("/starslack-ping", async ({ command, ack, respond }) => {
     const start = Date.now();
     await ack();
