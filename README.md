@@ -17,7 +17,7 @@ And that you have a Slack workspace and app credentials for an app in said works
 ---
 
 1. Clone the repository with `git clone https://github.com/valbuildr/starslack.git`
-2. In the Slack app's dashvoard create the following slash commands: (names MUST match)
+2. In the Slack app's dashboard create the following slash commands: (names MUST match)
    - `/starslack-ping`
    - `/starslack-nws-alert`
    - `/starslack-coin-flip`
@@ -35,4 +35,4 @@ AI (Claude Sonnet 4.6) was used to interpret and help fix errors I did not under
 
 ## Hack Club
 
-This project was shipped as a part of [Hack Club's Starship challenge](https://starship.hackclub.com).
+This project was shipped as a part of [Hack Club's Stardance challenge](https://stardance.hackclub.com).
