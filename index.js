@@ -51,6 +51,42 @@ app.command("/starslack-coin-flip", async ({ ack, respond }) => {
     await respond({ text: result === 1 ? "It's Heads." : "Tails." });
 });
 
+app.command("/starslack-bunny", async ({ ack, respond }) => {
+    await ack();
+
+    try {
+        const result = await axios.get("https://rabbit-api-two.vercel.app/api/random");
+
+        const breed = result.data.breed;
+        const url = result.data.url;
+
+        await respond({
+            blocks: [
+                {
+                    type: "image",
+                    title: {
+                        type: "plain_text",
+                        text: breed,
+                        emoji: true
+                    },
+                    image_url: url,
+                    alt_text: `A ${breed} bunny/rabbit.`
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: "Images provided by <https://rabbit-api-two.vercel.app/|Rabbit API>."
+                    }
+                }
+            ]
+        });
+    } catch (err) {
+        console.error(err);
+        await respond({ text: "Failed to get a random bunny.\nHere's a generic one instead: 🐇" });
+    }
+});
+
 (async () => {
     await app.start();
     console.log(`Started StarSlack.`);
